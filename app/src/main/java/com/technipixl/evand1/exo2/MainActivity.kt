@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import android.widget.EditText
+import java.lang.Exception
 
 class MainActivity : Activity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,21 +31,33 @@ class MainActivity : Activity(), View.OnClickListener {
             val alertDialog = builder.create()
             alertDialog.show()
             return
+
         }
         if (password.isEmpty()) {
             return
         }
-        val intentConnection = Intent(this, ConnectedActivity::class.java)
-        startActivity(intentConnection)
+        else {
+            val intentConnection = Intent(this, ConnectedActivity::class.java)
+            startActivity(intentConnection)
+        }
     }
 
     private fun isLoginValid(login: String): Boolean {
-        val firstCharacter = login.substring(0, 1)
-        val value = firstCharacter.toInt()
-        val convertedValue = Integer.toString(value)
-        if (firstCharacter.compareTo(convertedValue) != 0) {
+        if (login.isEmpty()){
             return false
         }
-        return login.contains("@")
+        try {
+            val firstCharacter = login.substring(0, 1)
+            val value = firstCharacter.toInt()
+            val convertedValue = Integer.toString(value)
+
+            if (firstCharacter.compareTo(convertedValue) != 0) {
+                return false
+            }
+        }catch (e: Exception){
+            return login.contains("@")
+        }
+
+        return true
     }
 }

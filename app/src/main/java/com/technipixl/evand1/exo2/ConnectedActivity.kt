@@ -14,9 +14,11 @@ class ConnectedActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connected)
-        loadData()
-        displayData()
+        this.loadData()
+
         textViewContent = findViewById<View>(R.id.textViewContent) as TextView
+        this.displayData()
+        this.updateData()
     }
 
     private fun loadData() {
@@ -27,13 +29,14 @@ class ConnectedActivity : Activity() {
         listItems.add("Message 4")
         listItems.add("Message 5")
         listItems.add("Message 6")
-        numberOfItems = listItems.size
-        updateData()
+        numberOfItems = listItems.size-1
+        this.updateData()
     }
 
     private fun updateData() {
         //remove last item
-        listItems.removeAt(listItems.size)
+        listItems.removeAt(listItems.size-1)
+
     }
 
     private fun displayData() {
